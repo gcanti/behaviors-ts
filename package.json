@@ -1,0 +1,39 @@
+{
+  "name": "behaviors-ts",
+  "version": "0.0.1",
+  "description": "A porting of purescript-behaviors",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "lint": "tslint src/**/*.ts test/**/*.ts",
+    "clean": "rm -rf lib/*",
+    "build": "npm run clean && tsc",
+    "start": "webpack --watch --progress --config example/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gcanti/behaviors-ts.git"
+  },
+  "author": "Giulio Canti <giulio.canti@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gcanti/behaviors-ts/issues"
+  },
+  "homepage": "https://github.com/gcanti/behaviors-ts",
+  "dependencies": {
+    "fp-ts": "^0.3.1",
+    "graphics-ts": "^0.1.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "3.0.0-beta.17",
+    "tslint": "4.4.2",
+    "tslint-config-standard": "4.0.0",
+    "typescript": "2.3.3",
+    "webpack": "1.14.0"
+  },
+  "tags": [],
+  "keywords": []
+}
