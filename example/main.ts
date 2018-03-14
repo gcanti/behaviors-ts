@@ -1,11 +1,11 @@
-import { Behavior, animate, fixB, integral_, derivative_, getSemigroup } from '../src/Behavior'
+import { Behavior, animate, fixB, integral_, derivative_, getSemigroup, behavior } from '../src/Behavior'
 import { Drawing } from 'graphics-ts/lib/drawing'
 import * as d from 'graphics-ts/lib/drawing'
 import { IO } from 'fp-ts/lib/IO'
 import * as c from 'graphics-ts/lib/canvas'
 import { white, black } from 'graphics-ts/lib/color'
 import { foldMap } from 'fp-ts/lib/Foldable'
-import * as array from 'fp-ts/lib/Array'
+import { array } from 'fp-ts/lib/Array'
 import { seconds } from '../src/Live'
 import { fieldNumber } from 'fp-ts/lib/Field'
 import { buttons, position } from '../src/Behavior/Mouse'
@@ -43,7 +43,7 @@ function scene({ width, height }: Size): Behavior<Drawing> {
   }
 
   function renderCircles(circles: Array<Circle>): Drawing {
-    return foldMap(array, d.monoidDrawing)(renderCircle, circles)
+    return foldMap(array, d.monoidDrawing)(circles, renderCircle)
   }
 
   const integral = integral_(fieldNumber)
@@ -61,14 +61,11 @@ function scene({ width, height }: Size): Behavior<Drawing> {
   })
 
   function dist(x: number, y: number, m: Option<Point>): number {
-    return m.fold(
-      () => Infinity,
-      ({ x: mx, y: my }) => {
-        const dx = x - mx / scaleFactor
-        const dy = y - my / scaleFactor
-        return dx * dx + dy * dy
-      }
-    )
+    return m.fold(Infinity, ({ x: mx, y: my }) => {
+      const dx = x - mx / scaleFactor
+      const dy = y - my / scaleFactor
+      return dx * dx + dy * dy
+    })
   }
 
   function toCircles(m: Option<Point>) {
@@ -91,7 +88,7 @@ function scene({ width, height }: Size): Behavior<Drawing> {
 
   const circles = swell.ap(position().map(toCircles))
 
-  return getSemigroup(d.monoidDrawing).concat(Behavior.of(background), circles.map(renderCircles))
+  return getSemigroup(d.monoidDrawing).concat(behavior.of(background), circles.map(renderCircles))
 }
 
 export function main(): IO<void> {

@@ -1,5 +1,4 @@
 import { Behavior, unfold } from '../Behavior'
-import { identity } from 'fp-ts/lib/function'
 import { up, down } from '../Event/Keyboard'
 
 /** A `Behavior` which reports the keys which are currently pressed */
@@ -9,5 +8,5 @@ export function keys(): Behavior<Set<number>> {
     set.delete(a)
     return set
   })
-  return unfold(identity, d.alt(u), new Set())
+  return unfold(d.alt(u), new Set<number>(), (f, s) => f(s))
 }

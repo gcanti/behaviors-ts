@@ -20,8 +20,8 @@ export function animationFrame(): Event<void> {
   })
 }
 
-export function withTime<A>(fa: Event<A>): Event<{ value: A, time: number }> {
-  return new Event<{ value: A, time: number }>(sub => {
+export function withTime<A>(fa: Event<A>): Event<{ value: A; time: number }> {
+  return new Event<{ value: A; time: number }>(sub => {
     fa.subscribe(a => sub({ value: a, time: new Date().getTime() }))
   })
 }

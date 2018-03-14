@@ -1,8 +1,8 @@
 import { Event } from '../Event'
 
 /** Create an `Event` which fires when the mouse moves */
-export function move(): Event<{ x: number, y: number }> {
-  return new Event<{ x: number, y: number }>(sub => {
+export function move(): Event<{ x: number; y: number }> {
+  return new Event<{ x: number; y: number }>(sub => {
     addEventListener('mousemove', e => sub({ x: e.clientX, y: e.clientY }))
   })
 }
